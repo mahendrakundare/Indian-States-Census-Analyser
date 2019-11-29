@@ -3,10 +3,7 @@ package com.bridgelabz.indiancensus;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.Reader;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
@@ -18,23 +15,26 @@ public class Analyser {
 
     public int readStateData() throws CensusException{
         int count = 0;
-        if (SAMPLE_CSV_FILE_PATH.contains(".csv"))
-            throw new CensusException("invalid file type extension", CensusException.ExceptionType.INVALID_FILE_TYPE);
-        try (
-                Reader reader = Files.newBufferedReader(Paths.get(SAMPLE_CSV_FILE_PATH));
-        ) {
-            CsvToBean<State> csvToBean = new CsvToBeanBuilder(reader)
-                    .withType(State.class)
-                    .withIgnoreLeadingWhiteSpace(true)
-                    .build();
+//        if (SAMPLE_CSV_FILE_PATH.contains(".csv"))
+//            throw new CensusException("invalid file type extension", CensusException.ExceptionType.INVALID_FILE_TYPE);
+        try (FileReader file = new FileReader("/home/admin1/IdeaProjects/Indian States Census Analyser/StateCode.csv")) {
+            try (Reader reader = Files.newBufferedReader(Paths.get(SAMPLE_CSV_FILE_PATH))) {
+                try (BufferedReader bufferedReader = new BufferedReader(file)) {
+                    CsvToBean<State> csvToBean = new CsvToBeanBuilder(reader)
+                            .withType(State.class)
+                            .withIgnoreLeadingWhiteSpace(true)
+                            .build();
 
-            Iterator<State> stateIterator = csvToBean.iterator();
+                    Iterator<State> stateIterator = csvToBean.iterator();
 
-            while (stateIterator.hasNext()) {
-                State state = stateIterator.next();
-                count++;
+                    while (stateIterator.hasNext()) {
+                        State state = stateIterator.next();
+                        count++;
+                    }
+                }
             }
-        } catch (NoSuchFileException e) {
+        } catch (NoSuchFileException | FileNotFoundException e) {
+            e.printStackTrace();
             throw new CensusException("invalid csv file name", CensusException.ExceptionType.FILE_NOT_FOUND);
         } catch (IOException e) {
             e.printStackTrace();
