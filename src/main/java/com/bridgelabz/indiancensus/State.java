@@ -15,6 +15,8 @@ public class State {
     @CsvBindByName
     private String TIN;
 
+
+
     public String getSrNo() {
         return SrNo;
     }
@@ -46,4 +48,6 @@ public class State {
     public void setTIN(String TIN) {
         this.TIN = TIN;
     }
+
+
 }
