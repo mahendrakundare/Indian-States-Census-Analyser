@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.bridgelabz.indiancensus.AnalyserTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2019-11-29T10:33:26" hostname="admin1-LIVA-Z2V" time="0.027">
+<testsuite name="com.bridgelabz.indiancensus.AnalyserTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2019-11-29T11:04:28" hostname="admin1-LIVA-Z2V" time="0.318">
   <properties/>
-  <testcase name="toCheckNumberOfRecords" classname="com.bridgelabz.indiancensus.AnalyserTest" time="0.027"/>
+  <testcase name="toCheckNumberOfRecords" classname="com.bridgelabz.indiancensus.AnalyserTest" time="0.318"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
