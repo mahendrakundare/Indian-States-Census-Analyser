@@ -3,6 +3,7 @@ package com.bridgelabz.indiancensus;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Reader;
@@ -15,8 +16,10 @@ public class Analyser {
 
     private static final String SAMPLE_CSV_FILE_PATH = "/home/admin1/IdeaProjects/Indian States Census Analyser/StateCod.csv";
 
-    public int readStateData() throws CensusException, IOException {
+    public int readStateData() throws CensusException{
         int count = 0;
+        if (SAMPLE_CSV_FILE_PATH.contains(".csv"))
+            throw new CensusException("invalid file type extension", CensusException.ExceptionType.INVALID_FILE_TYPE);
         try (
                 Reader reader = Files.newBufferedReader(Paths.get(SAMPLE_CSV_FILE_PATH));
         ) {
@@ -32,10 +35,29 @@ public class Analyser {
                 count++;
             }
         } catch (NoSuchFileException e) {
-            throw new CensusException("File not found", CensusException.ExceptionType.FILE_NOT_FOUND);
+            throw new CensusException("invalid csv file name", CensusException.ExceptionType.FILE_NOT_FOUND);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
         return count;
     }
 
+    public void checkFileType() {
+        File file = new File(SAMPLE_CSV_FILE_PATH);
+        String ext = getFileExtension(file);
+
+        try {
+            Reader reader = Files.newBufferedReader(Paths.get(SAMPLE_CSV_FILE_PATH));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private static String getFileExtension(File file) {
+        String fileName = file.getName();
+        if(fileName.lastIndexOf(".") != -1 && fileName.lastIndexOf(".") != 0)
+            return fileName.substring(fileName.lastIndexOf(".")+1);
+        else return "";
+    }
 }

@@ -15,14 +15,28 @@ public class AnalyserTest {
     }
 
     @Test
-    public void toTestFilePresentOrNot() {
+    public void toTestFilePresentOrNot() throws IOException {
+        Analyser analyser = new Analyser();
+        try {
+            ExpectedException exceptionRule = ExpectedException.none();
+          //  exceptionRule.expect(CensusException.class);
+            analyser.readStateData();
+        } catch (CensusException  e) {
+            e.printStackTrace();
+            Assert.assertEquals(CensusException.ExceptionType.FILE_NOT_FOUND,e.type);
+        }
+    }
+
+    @Test
+    public void testToCheckTheFileTypeIfNotMatchThenThrowError() {
         Analyser analyser = new Analyser();
         try {
             ExpectedException exceptionRule = ExpectedException.none();
             exceptionRule.expect(CensusException.class);
             analyser.readStateData();
-        } catch (CensusException |IOException  e) {
-            Assert.assertEquals("File not found",e.getMessage());
+        } catch (CensusException e) {
+            e.printStackTrace();
+            Assert.assertEquals(CensusException.ExceptionType.INVALID_FILE_TYPE,e.type);
         }
     }
 }
