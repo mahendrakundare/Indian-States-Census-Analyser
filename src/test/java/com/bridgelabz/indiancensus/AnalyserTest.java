@@ -19,11 +19,11 @@ public class AnalyserTest {
         Analyser analyser = new Analyser();
         try {
             ExpectedException exceptionRule = ExpectedException.none();
-          //  exceptionRule.expect(CensusException.class);
+            //  exceptionRule.expect(CensusException.class);
             analyser.readStateData();
-        } catch (CensusException  e) {
+        } catch (CensusException e) {
             e.printStackTrace();
-            Assert.assertEquals(CensusException.ExceptionType.FILE_NOT_FOUND,e.type);
+            Assert.assertEquals(CensusException.ExceptionType.FILE_NOT_FOUND, e.type);
         }
     }
 
@@ -36,7 +36,9 @@ public class AnalyserTest {
             analyser.readStateData();
         } catch (CensusException e) {
             e.printStackTrace();
-            Assert.assertEquals(CensusException.ExceptionType.INVALID_FILE_TYPE,e.type);
+            Assert.assertEquals(CensusException.ExceptionType.INVALID_TYPE, e.type);
         }
     }
+
+
 }

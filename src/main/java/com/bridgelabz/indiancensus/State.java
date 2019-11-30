@@ -15,7 +15,8 @@ public class State {
     @CsvBindByName
     private String TIN;
 
-
+    @CsvBindByName
+    private String abc;
 
     public String getSrNo() {
         return SrNo;
