@@ -63,4 +63,7 @@ public class AnalyserTest {
             Assert.assertEquals(CensusException.ExceptionType.NO_HEADER,e.type);
         }
     }
+
+
+
 }

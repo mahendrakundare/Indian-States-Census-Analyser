@@ -3,20 +3,17 @@ package com.bridgelabz.indiancensus;
 import com.opencsv.bean.CsvBindByName;
 
 public class State {
-    @CsvBindByName(column = "SrNo", required = true)
+    @CsvBindByName(column = "SrNo")
     private String SrNo;
 
-    @CsvBindByName(column = "StateName", required = true)
+    @CsvBindByName(column = "StateName")
     private String StateName;
 
-    @CsvBindByName(column = "StateCode", required = true)
+    @CsvBindByName(column = "StateCode")
     private String StateCode;
 
-    @CsvBindByName(column = "TIN", required = true)
+    @CsvBindByName(column = "TIN" )
     private String TIN;
-
-//    @CsvBindByName
-//    private String abc;
 
     public String getSrNo() {
         return SrNo;
