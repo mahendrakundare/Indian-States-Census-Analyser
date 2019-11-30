@@ -3,7 +3,7 @@ package com.bridgelabz.indiancensus;
 public class CensusException extends Exception {
 
     enum ExceptionType {
-        FILE_NOT_FOUND, INVALID_TYPE
+        NO_SUCH_FILE,FILE_NOT_FOUND, INVALID_TYPE, INCORRECT_DELIMITER, NO_HEADER;
     }
 
     ExceptionType type;

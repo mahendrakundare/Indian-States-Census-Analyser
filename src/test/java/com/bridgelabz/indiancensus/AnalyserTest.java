@@ -22,13 +22,13 @@ public class AnalyserTest {
             //  exceptionRule.expect(CensusException.class);
             analyser.readStateData();
         } catch (CensusException e) {
-            e.printStackTrace();
-            Assert.assertEquals(CensusException.ExceptionType.FILE_NOT_FOUND, e.type);
+//            e.printStackTrace();
+            Assert.assertEquals(CensusException.ExceptionType.NO_SUCH_FILE, e.type);
         }
     }
 
     @Test
-    public void testToCheckTheFileTypeIfNotMatchThenThrowError() {
+    public void testToCheckTheFileTypeIfNotMatchThenThrowError() throws IOException {
         Analyser analyser = new Analyser();
         try {
             ExpectedException exceptionRule = ExpectedException.none();
@@ -40,5 +40,27 @@ public class AnalyserTest {
         }
     }
 
+    @Test
+    public void testToCheckDelimiterincorretShouldThrowException() throws IOException {
+        Analyser analyser = new Analyser();
+        try {
+            Assert.assertEquals(37, analyser.readStateData());
+        } catch (CensusException e) {
+            System.out.println(e.getMessage());
+            Assert.assertEquals(CensusException.ExceptionType.INCORRECT_DELIMITER, e.type);
+        }
+    }
 
+    @Test
+    public void testToCheckIfCSVhasHeaderOrNot() throws IOException {
+        Analyser analyser = new Analyser();
+        try {
+            ExpectedException exceptionRule = ExpectedException.none();
+            exceptionRule.expect(CensusException.class);
+            analyser.readStateData();
+        } catch (CensusException e) {
+            e.printStackTrace();
+            Assert.assertEquals(CensusException.ExceptionType.NO_HEADER,e.type);
+        }
+    }
 }

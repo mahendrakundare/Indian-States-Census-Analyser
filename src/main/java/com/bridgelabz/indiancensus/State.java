@@ -3,20 +3,20 @@ package com.bridgelabz.indiancensus;
 import com.opencsv.bean.CsvBindByName;
 
 public class State {
-    @CsvBindByName
+    @CsvBindByName(column = "SrNo", required = true)
     private String SrNo;
 
-    @CsvBindByName
+    @CsvBindByName(column = "StateName", required = true)
     private String StateName;
 
-    @CsvBindByName
+    @CsvBindByName(column = "StateCode", required = true)
     private String StateCode;
 
-    @CsvBindByName
+    @CsvBindByName(column = "TIN", required = true)
     private String TIN;
 
-    @CsvBindByName
-    private String abc;
+//    @CsvBindByName
+//    private String abc;
 
     public String getSrNo() {
         return SrNo;
@@ -49,6 +49,5 @@ public class State {
     public void setTIN(String TIN) {
         this.TIN = TIN;
     }
-
 
 }
