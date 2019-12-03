@@ -9,7 +9,7 @@ import java.io.IOException;
 public class AnalyserTest {
 
     @Test
-    public void toCheckNumberOfRecords() throws IOException, CensusException {
+gt    public void toCheckNumberOfRecords() throws IOException, CensusException {
         Analyser analyser = new Analyser();
         Assert.assertEquals(37, analyser.readStateData());
     }
