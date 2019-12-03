@@ -3,7 +3,9 @@ package com.bridgelabz.indiancensus;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 
-import java.io.*;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
@@ -11,11 +13,11 @@ import java.util.Iterator;
 
 public class Analyser {
 
-    public int readStateData(String STATE_CODE_DATA) throws CensusException, IOException {
+    public int readStateData(String STATE_CODE_DATA,String classname) throws CensusException, IOException {
         int count = 0;
         try (Reader reader = Files.newBufferedReader(Paths.get(STATE_CODE_DATA))) {
             CsvToBean csvToBean = new CsvToBeanBuilder(reader)
-                    .withType(State.class)
+                    .withType(Class.forName(classname))
                     .withIgnoreLeadingWhiteSpace(true)
                     .build();
 
@@ -32,7 +34,7 @@ public class Analyser {
         } catch (NoSuchFileException e) {
             e.printStackTrace();
             throw new CensusException("no such csv file ",CensusException.ExceptionType.NO_SUCH_FILE);
-        } catch (RuntimeException e) {
+        } catch (RuntimeException | ClassNotFoundException e) {
             e.printStackTrace();
             throw new CensusException("Error in header",CensusException.ExceptionType.NO_HEADER);
         }
@@ -40,12 +42,12 @@ public class Analyser {
     }
 
 
-    public int readStateCensusData(String STATE_CENSUS_DATA) throws IOException, CensusException {
+    public int readStateCensusData(String STATE_CENSUS_DATA,String classname) throws IOException, CensusException {
 
         int count = 0;
         try (Reader reader = Files.newBufferedReader(Paths.get(STATE_CENSUS_DATA))) {
             CsvToBean csvToBean = new CsvToBeanBuilder(reader)
-                    .withType(StateCensus.class)
+                    .withType(Class.forName(classname))
                     .withIgnoreLeadingWhiteSpace(true)
                     .build();
 
@@ -58,7 +60,7 @@ public class Analyser {
         } catch (NoSuchFileException e) {
             e.printStackTrace();
             throw new CensusException("no such csv file ",CensusException.ExceptionType.NO_SUCH_FILE);
-        } catch (RuntimeException e) {
+        } catch (RuntimeException | ClassNotFoundException e) {
             e.printStackTrace();
             throw new CensusException("Error in header",CensusException.ExceptionType.NO_HEADER);
         }
