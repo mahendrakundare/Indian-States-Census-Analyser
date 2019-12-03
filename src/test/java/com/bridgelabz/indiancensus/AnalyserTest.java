@@ -14,7 +14,8 @@ public class AnalyserTest {
         @Test
     public void toCheckNumberOfRecords() throws IOException, CensusException {
         Analyser analyser = new Analyser();
-        Assert.assertEquals(37, analyser.readStateData(STATE_CODE_DATA,STATE_CLASS));
+//        Assert.assertEquals(37, analyser.readStateData(STATE_CODE_DATA,STATE_CLASS));
+        Assert.assertEquals(37, analyser.readData(STATE_CODE_DATA,STATE_CLASS));
     }
     @Test
     public void toTestStateDataFilePresentOrNot() throws IOException, ClassNotFoundException {
@@ -22,7 +23,7 @@ public class AnalyserTest {
         try {
             ExpectedException exceptionRule = ExpectedException.none();
             //  exceptionRule.expect(CensusException.class);
-            analyser.readStateData(STATE_CODE_DATA,STATE_CLASS);
+            analyser.readData(STATE_CODE_DATA,STATE_CLASS);
         } catch (CensusException e) {
 //            e.printStackTrace();
             Assert.assertEquals(CensusException.ExceptionType.NO_SUCH_FILE, e.type);
@@ -35,7 +36,7 @@ public class AnalyserTest {
         try {
             ExpectedException exceptionRule = ExpectedException.none();
             //  exceptionRule.expect(CensusException.class);
-            analyser.readStateData(STATE_CODE_DATA,STATE_CLASS);
+            analyser.readData(STATE_CODE_DATA,STATE_CLASS);
         } catch (CensusException e) {
 //            e.printStackTrace();
             Assert.assertEquals(CensusException.ExceptionType.NO_SUCH_FILE, e.type);
@@ -48,7 +49,7 @@ public class AnalyserTest {
         try {
             ExpectedException exceptionRule = ExpectedException.none();
             exceptionRule.expect(CensusException.class);
-            analyser.readStateData(STATE_CODE_DATA,STATE_CLASS);
+            analyser.readData(STATE_CODE_DATA,STATE_CLASS);
         } catch (CensusException e) {
             e.printStackTrace();
             Assert.assertEquals(CensusException.ExceptionType.INVALID_TYPE, e.type);
@@ -59,7 +60,7 @@ public class AnalyserTest {
     public void testToCheckDelimiterincorretShouldThrowException() throws IOException {
         Analyser analyser = new Analyser();
         try {
-            Assert.assertEquals(37, analyser.readStateData(STATE_CODE_DATA,STATE_CLASS));
+            Assert.assertEquals(37, analyser.readData(STATE_CODE_DATA,STATE_CLASS));
         } catch (CensusException e) {
             System.out.println(e.getMessage());
             Assert.assertEquals(CensusException.ExceptionType.INCORRECT_DELIMITER, e.type);
@@ -72,7 +73,7 @@ public class AnalyserTest {
         try {
             ExpectedException exceptionRule = ExpectedException.none();
             exceptionRule.expect(CensusException.class);
-            analyser.readStateData(STATE_CODE_DATA,STATE_CLASS);
+            analyser.readData(STATE_CODE_DATA,STATE_CLASS);
         } catch (CensusException e) {
             e.printStackTrace();
             Assert.assertEquals(CensusException.ExceptionType.NO_HEADER,e.type);
@@ -118,7 +119,7 @@ public class AnalyserTest {
     public void testToCensusDelimiterincorretShouldThrowException() throws IOException {
         Analyser analyser = new Analyser();
         try {
-            Assert.assertEquals(37, analyser.readStateData(STATE_CENSUS_DATA,STATE_CENSUS_CLASS));
+            Assert.assertEquals(37, analyser.readStateCensusData(STATE_CENSUS_DATA,STATE_CENSUS_CLASS));
         } catch (CensusException e) {
             System.out.println(e.getMessage());
             Assert.assertEquals(CensusException.ExceptionType.INCORRECT_DELIMITER, e.type);

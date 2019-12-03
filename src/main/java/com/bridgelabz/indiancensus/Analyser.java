@@ -3,6 +3,7 @@ package com.bridgelabz.indiancensus;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Reader;
@@ -13,57 +14,55 @@ import java.util.Iterator;
 
 public class Analyser {
 
-    public int readStateData(String STATE_CODE_DATA,String classname) throws CensusException, IOException {
-        int count = 0;
-        try (Reader reader = Files.newBufferedReader(Paths.get(STATE_CODE_DATA))) {
-            CsvToBean csvToBean = new CsvToBeanBuilder(reader)
-                    .withType(Class.forName(classname))
+    public static <T> CsvToBean OpenCsvBuilder(String fileName, String className) {
+        CsvToBean<T> csvToBean;
+        try {
+            Class localClass = Class.forName(className);
+            Reader reader = Files.newBufferedReader(Paths.get(fileName));
+
+            csvToBean = new CsvToBeanBuilder(reader)
+                    .withType(Class.forName(className))
                     .withIgnoreLeadingWhiteSpace(true)
                     .build();
 
-            Iterator<State> stateIterator = csvToBean.iterator();
-
-            while (stateIterator.hasNext()) {
-                    State state = stateIterator.next();
-                    state.getSrNo();
-                    state.getStateName();
-                    state.getTIN();
-                    state.getStateCode();
-                    count++;
-            }
-        } catch (NoSuchFileException e) {
+            return csvToBean;
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
-            throw new CensusException("no such csv file ",CensusException.ExceptionType.NO_SUCH_FILE);
-        } catch (RuntimeException | ClassNotFoundException e) {
+        } catch (IOException e) {
             e.printStackTrace();
-            throw new CensusException("Error in header",CensusException.ExceptionType.NO_HEADER);
         }
+        return null;
+    }
+
+    public static int readData(String fileName,String classname) throws CensusException {
+        int count = 0;
+        try {
+            CsvToBean<State> csvToBean=OpenCsvBuilder(fileName, classname);
+            Iterator<State> myUserIterator = csvToBean.iterator();
+            while (myUserIterator.hasNext()) {
+                State csvStates = myUserIterator.next();
+                count++;
+            }
+        } catch (RuntimeException e) {
+            throw new CensusException("ERROR IN FILE TYPE OR IN FILE DELIMITER OR IN FILE HEADER", CensusException.ExceptionType.INVALID_TYPE);
+        }
+        System.out.println(count);
         return count;
     }
 
-
-    public int readStateCensusData(String STATE_CENSUS_DATA,String classname) throws IOException, CensusException {
-
-        int count = 0;
-        try (Reader reader = Files.newBufferedReader(Paths.get(STATE_CENSUS_DATA))) {
-            CsvToBean csvToBean = new CsvToBeanBuilder(reader)
-                    .withType(Class.forName(classname))
-                    .withIgnoreLeadingWhiteSpace(true)
-                    .build();
-
+    public static int readStateCensusData(String fileName,String classname) throws CensusException {
+        int count=0;
+        try {
+            CsvToBean<StateCensus> csvToBean = OpenCsvBuilder(fileName, classname);
             Iterator<StateCensus> censusIterator = csvToBean.iterator();
-
             while (censusIterator.hasNext()) {
                 StateCensus stateCensus = censusIterator.next();
                 count++;
             }
-        } catch (NoSuchFileException e) {
-            e.printStackTrace();
-            throw new CensusException("no such csv file ",CensusException.ExceptionType.NO_SUCH_FILE);
-        } catch (RuntimeException | ClassNotFoundException e) {
-            e.printStackTrace();
-            throw new CensusException("Error in header",CensusException.ExceptionType.NO_HEADER);
+        } catch (RuntimeException e) {
+            throw new CensusException("ERROR IN FILE TYPE OR IN FILE DELIMITER OR IN FILE HEADER", CensusException.ExceptionType.INVALID_TYPE);
         }
+        System.out.println(count);
         return count;
     }
 }

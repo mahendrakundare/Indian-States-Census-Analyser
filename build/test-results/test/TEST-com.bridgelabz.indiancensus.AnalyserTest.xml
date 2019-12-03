@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.bridgelabz.indiancensus.AnalyserTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2019-12-03T04:17:28" hostname="admin1-LIVA-Z2V" time="0.308">
+<testsuite name="com.bridgelabz.indiancensus.AnalyserTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2019-12-03T06:08:49" hostname="admin1-LIVA-Z2V" time="0.313">
   <properties/>
-  <testcase name="toTestStateCensusDataFilePresentOrNot" classname="com.bridgelabz.indiancensus.AnalyserTest" time="0.308"/>
-  <system-out><![CDATA[]]></system-out>
+  <testcase name="toCheckNumberOfRecords" classname="com.bridgelabz.indiancensus.AnalyserTest" time="0.313"/>
+  <system-out><![CDATA[37
+]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
