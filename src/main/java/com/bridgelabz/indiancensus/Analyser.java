@@ -11,9 +11,7 @@ import java.util.Iterator;
 
 public class Analyser {
 
-    private static final String STATE_CODE_DATA = "/home/admin1/IdeaProjects/Indian States Census Analyser/StateCode.csv";
-//    private static final String STATE_CENSUS_DATA ="/home/admin1/IdeaProjects/Indian States Census Analyser/StateCensusData.csv";
-    public int readStateData() throws CensusException, IOException {
+    public int readStateData(String STATE_CODE_DATA) throws CensusException, IOException {
         int count = 0;
         try (Reader reader = Files.newBufferedReader(Paths.get(STATE_CODE_DATA))) {
             CsvToBean csvToBean = new CsvToBeanBuilder(reader)
